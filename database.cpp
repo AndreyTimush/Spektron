@@ -1,0 +1,52 @@
+#include "database.h"
+
+DataBase::DataBase(QObject *parent) : QSqlQueryModel(parent)
+{
+    this->updateModel();
+}
+
+QVariant DataBase::data(const QModelIndex & index, int role) const {
+
+    // Define the column number, address, so to speak, on the role of number
+    int columnId = role - Qt::UserRole - 1;
+    // Create the index using the ID column
+    QModelIndex modelIndex = this->index(index.row(), columnId);
+
+    /* And with the help of already data() method of the base class
+     * to take out the data table from the model
+     * */
+    return QSqlQueryModel::data(modelIndex, Qt::DisplayRole);
+}
+
+QVariantMap DataBase::get(int idx) const
+{
+    QVariantMap map;
+    foreach(int k, roleNames().keys()) {
+        map[roleNames().value(k)] = data(index(idx, 0), k);
+    }
+    return map;
+}
+
+QHash<int, QByteArray> DataBase::roleNames() const {
+
+    QHash<int, QByteArray> roles;
+    roles[IdRole] = "id";
+    roles[NameRole] = "name";
+    roles[SurnameRole] = "surname";
+    roles[PositionRole] = "position";
+    roles[AddressRole] = "address";
+    roles[PhoneRole] = "phone";
+    roles[MartialStatusRole] = "martialStatus";
+    return roles;
+}
+
+
+void DataBase::updateModel()
+{
+    this->setQuery("select * from person");
+}
+
+int DataBase::getId(int row)
+{
+    return this->data(this->index(row, 0), IdRole).toInt();
+}

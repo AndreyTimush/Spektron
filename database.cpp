@@ -30,7 +30,7 @@ QVariantMap DataBase::get(int idx) const
 QHash<int, QByteArray> DataBase::roleNames() const {
 
     QHash<int, QByteArray> roles;
-    roles[IdRole] = "id";
+    roles[IdRole] = "idPerson";
     roles[NameRole] = "name";
     roles[SurnameRole] = "surname";
     roles[PositionRole] = "position";

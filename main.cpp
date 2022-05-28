@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     db.open();
     QSqlQuery query;
     query.exec("create table if not exists person (id integer primary key, firstname varchar(20), surname varchar(30), position varchar(30), address varchar(30), phone varchar(12), martialStatus varchar(10))");
-//    query.exec("insert into person (firstname, surname, position, address, phone, martialStatus) values(\"Andrey\", \"Timush\", \"developer\", \"Spb\", \"89111113245\", \"holost\")");
+//    query.exec("insert into person (firstname, surname, position, address, phone, martialStatus) values(\"Ivan\", \"Moldovan\", \"developer\", \"Spb\", \"89111113245\", \"holost\")");
 
     // Обеспечиваем доступ к модели и классу для работы с базой данных из QML
     DataBase *dataBase = new DataBase();

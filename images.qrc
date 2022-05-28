@@ -1,0 +1,7 @@
+<RCC>
+	<qresource prefix="/">
+		<file>data/images/add.svg</file>
+		<file>data/images/remove.svg</file>
+		<file>data/images/edit.svg</file>
+	</qresource>
+</RCC>

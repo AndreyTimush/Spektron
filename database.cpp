@@ -50,3 +50,14 @@ int DataBase::getId(int row)
 {
     return this->data(this->index(row, 0), IdRole).toInt();
 }
+
+void DataBase::removePerson(QString id)
+{
+    QSqlQuery query;
+    QString str = "delete from person where id=";
+    str.append(id);
+    if (query.exec(str))
+        qDebug() << "remove was succesfully";
+    else
+        qDebug() << "bad removing";
+}

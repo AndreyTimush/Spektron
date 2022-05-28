@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QSqlQueryModel>
+#include <QDebug>
+#include <QSqlQuery>
 
 class DataBase : public QSqlQueryModel
 {
@@ -32,6 +34,7 @@ protected:
 public slots:
     void updateModel();
     int getId(int row);
+    void removePerson(QString id);
 };
 
 #endif // DATABASE_H

@@ -101,7 +101,8 @@ Window {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            print("currentIndex is ", listView.currentIndex)
+                            dataBase.removePerson(dataBase.get(listView.currentIndex).idPerson)
+                            dataBase.updateModel()
                         }
                     }
                 }
@@ -135,7 +136,7 @@ Window {
 
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: print("id = ", surname)
+//                        onClicked: print("id = ", surname)
                     }
                 }
             }

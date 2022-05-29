@@ -11,8 +11,10 @@ ApplicationWindow {
         target: dataBase
 
         function onGetCountries(name) {
-            for (var i=0; i < name.length; i++)
+            for (var i=0; i < name.length; i++) {
                 nameCountries.append({"cntryName": name[i]})
+                print("aa = ", name[i])
+            }
         }
     }
 
@@ -68,17 +70,35 @@ ApplicationWindow {
                 }
             }
 
+
             Item {
                 width: childrenRect.width
                 height: childrenRect.height
 
+                Label {
+                    id: labelCountries
+                    text: "Countries: "
+                }
+
                 ListView {
-                    anchors.fill: parent
+                    height: 100
+                    width: 100
+                    anchors.left: labelCountries.right
+                    interactive: false
                     model: nameCountries
-                    Text {
-                        text: cntryName
+                    delegate: countryDelegate
+                    Component {
+                        id: countryDelegate
+                        Item {
+                            width: 30
+                            height: 30
+                            Text {
+                                text: cntryName
+                            }
+                        }
                     }
                 }
+
             }
         }
     }

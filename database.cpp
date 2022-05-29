@@ -78,4 +78,5 @@ void DataBase::countries(QString id)
 
     qDebug() << "function countries";
     emit getCountries(list);
+//    return list;
 }

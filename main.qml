@@ -224,10 +224,12 @@ Window {
                 }
 
                 onDoubleClicked: {
+//                    var elements = dataBase.countries(idPerson)
                     var component = Qt.createComponent("InfoScreen.qml")
                     var window = component.createObject(root)
-                    window.show()
                     dataBase.countries(idPerson)
+//                    window.sss = elements
+                    window.show()
                 }
             }
         }

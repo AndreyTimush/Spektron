@@ -25,8 +25,8 @@ public:
     Q_INVOKABLE QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
     Q_INVOKABLE QVariantMap get(int idx) const;
 
-//    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
 signals:
+    void getCountries(QStringList name);
 
 protected:
     QHash<int, QByteArray> roleNames() const;
@@ -35,6 +35,7 @@ public slots:
     void updateModel();
     int getId(int row);
     void removePerson(QString id);
+    void countries(QString id);
 };
 
 #endif // DATABASE_H

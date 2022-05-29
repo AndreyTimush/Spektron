@@ -3,6 +3,7 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.12
 
 Window {
+    id: root
     minimumWidth: 1080
     minimumHeight: 720
     visible: true
@@ -21,8 +22,9 @@ Window {
         highlightMoveDuration: 100
         highlightResizeDuration: 1
         focus: true
+//        currentIndex: 0
         highlight: Rectangle {
-            color: "grey"
+            color: "lightblue"
         }
         highlightFollowsCurrentItem: true
     }
@@ -113,7 +115,6 @@ Window {
                 height: parent.height
                 anchors.right: parent.right
                 anchors.rightMargin: 10
-//                anchors.left: itemRemove.right
 
                 Item {
                     width: childrenRect.width
@@ -136,7 +137,7 @@ Window {
 
                     MouseArea {
                         anchors.fill: parent
-//                        onClicked: print("id = ", surname)
+                        onClicked: print("id = ", dataBase.get(listView.currentIndex).idPerson)
                     }
                 }
             }
@@ -152,7 +153,7 @@ Window {
             height: 50
             Rectangle {
                 anchors.fill: parent
-                color: "silver"
+                color: "black"
             }
 
             Label {
@@ -160,6 +161,7 @@ Window {
                 anchors.left: parent.left
                 anchors.leftMargin: 10
                 text: "Name"
+                color: "white"
             }
 
             Label {
@@ -167,6 +169,7 @@ Window {
                 text: "Surname"
                 anchors.left: nameLabel.right
                 anchors.leftMargin: parent.width / 3
+                color: "white"
             }
 
             Label {
@@ -174,6 +177,7 @@ Window {
                 text: "Position"
                 anchors.right: parent.right
                 anchors.rightMargin: 10
+                color: "white"
             }
 
             Rectangle {
@@ -217,7 +221,13 @@ Window {
                 anchors.fill: parent
                 onClicked: {
                     listView.currentIndex = index
-                    print("index = ", idPerson)
+                }
+
+                onDoubleClicked: {
+                    var component = Qt.createComponent("InfoScreen.qml")
+                    var window = component.createObject(root)
+                    window.show()
+                    dataBase.countries(idPerson)
                 }
             }
         }

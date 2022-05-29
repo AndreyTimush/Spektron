@@ -57,7 +57,25 @@ void DataBase::removePerson(QString id)
     QString str = "delete from person where id=";
     str.append(id);
     if (query.exec(str))
-        qDebug() << "remove was succesfully";
+        qDebug() << "remove was successfully";
     else
         qDebug() << "bad removing";
+}
+
+void DataBase::countries(QString id)
+{
+    qDebug() << "need id = " << id;
+    QStringList list;
+    QSqlQuery query("select * from country");
+    query.exec();
+    while (query.next()) {
+        if (id == query.value(0).toString())
+            list.append(query.value(1).toString());
+    }
+
+    qDebug() << "list = " << list;
+//    query.exec("select * from countries");
+
+    qDebug() << "function countries";
+    emit getCountries(list);
 }

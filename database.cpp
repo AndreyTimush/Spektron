@@ -78,12 +78,10 @@ void DataBase::addPerson(QString data)
 {
     qDebug() << "data = " << data;
     QStringList list = data.split(",");
-//    QString request = "INSERT INTO person (firstname, surname, position, address, phone, martialStatus";
     QSqlQuery query;
 
     query.prepare("INSERT INTO person (firstname, surname, position, address, phone, martialStatus) "
                   "VALUES (:firstname, :surname, :position, :address, :phone, :martialStatus)");
-//    query.bindValue(":id", 100);
     query.bindValue(":firstname", list[0]);
     query.bindValue(":surname", list[1]);
     query.bindValue(":position", list[2]);
@@ -96,5 +94,22 @@ void DataBase::addPerson(QString data)
         qDebug() << "bad";
     }
 
-    qDebug() << "list = " << list;
+    QString maxId;
+
+    query.exec("SELECT MAX(id) FROM person");
+    while (query.next()) {
+        maxId = query.value(0).toString();
+    }
+
+    qDebug() << "list = " << list[6];
+    QStringList countries = list[6].split(" ");
+    for (int i = 0; i < countries.length(); i++) {
+        qDebug() << "c = " << countries[i];
+        QSqlQuery queryCountries;
+        queryCountries.prepare("INSERT INTO country (id, country) "
+                               "VALUES (:id, :country)");
+        queryCountries.bindValue(":id", maxId);
+        queryCountries.bindValue(":country", countries[i]);
+        queryCountries.exec();
+    }
 }

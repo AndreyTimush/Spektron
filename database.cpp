@@ -64,7 +64,6 @@ void DataBase::removePerson(QString id)
 
 void DataBase::countries(QString id)
 {
-    qDebug() << "need id = " << id;
     QStringList list;
     QSqlQuery query("select * from country");
     query.exec();
@@ -72,11 +71,30 @@ void DataBase::countries(QString id)
         if (id == query.value(0).toString())
             list.append(query.value(1).toString());
     }
+    emit getCountries(list);
+}
+
+void DataBase::addPerson(QString data)
+{
+    qDebug() << "data = " << data;
+    QStringList list = data.split(",");
+//    QString request = "INSERT INTO person (firstname, surname, position, address, phone, martialStatus";
+    QSqlQuery query;
+
+    query.prepare("INSERT INTO person (firstname, surname, position, address, phone, martialStatus) "
+                  "VALUES (:firstname, :surname, :position, :address, :phone, :martialStatus)");
+//    query.bindValue(":id", 100);
+    query.bindValue(":firstname", list[0]);
+    query.bindValue(":surname", list[1]);
+    query.bindValue(":position", list[2]);
+    query.bindValue(":address", list[3]);
+    query.bindValue(":phone", list[4]);
+    query.bindValue(":martialStatus", list[5]);
+    if (query.exec()) {
+        qDebug() << "excellent insert";
+    } else {
+        qDebug() << "bad";
+    }
 
     qDebug() << "list = " << list;
-//    query.exec("select * from countries");
-
-    qDebug() << "function countries";
-    emit getCountries(list);
-//    return list;
 }

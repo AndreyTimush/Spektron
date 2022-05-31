@@ -71,7 +71,10 @@ Window {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            print("currentIndex is ", listView.currentIndex)
+//                            print("currentIndex is ", listView.currentIndex)
+                            var component = Qt.createComponent("AddScreen.qml")
+                            var window = component.createObject(root)
+                            window.show()
                         }
                     }
                 }
@@ -224,11 +227,9 @@ Window {
                 }
 
                 onDoubleClicked: {
-//                    var elements = dataBase.countries(idPerson)
                     var component = Qt.createComponent("InfoScreen.qml")
                     var window = component.createObject(root)
                     dataBase.countries(idPerson)
-//                    window.sss = elements
                     window.show()
                 }
             }

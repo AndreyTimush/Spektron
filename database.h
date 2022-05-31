@@ -36,6 +36,7 @@ public slots:
     int getId(int row);
     void removePerson(QString id);
     void countries(QString id);
+    void addPerson(QString data);
 };
 
 #endif // DATABASE_H

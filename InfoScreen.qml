@@ -13,7 +13,6 @@ ApplicationWindow {
         function onGetCountries(name) {
             for (var i=0; i < name.length; i++) {
                 nameCountries.append({"cntryName": name[i]})
-                print("aa = ", name[i])
             }
         }
     }
@@ -98,7 +97,6 @@ ApplicationWindow {
                         }
                     }
                 }
-
             }
         }
     }

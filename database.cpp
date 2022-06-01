@@ -54,12 +54,19 @@ int DataBase::getId(int row)
 void DataBase::removePerson(QString id)
 {
     QSqlQuery query;
-    QString str = "delete from person where id=";
-    str.append(id);
-    if (query.exec(str))
+    QString strPers = "delete from person where id=";
+    QString strContry = "delete from country where id=";
+    strPers.append(id);
+    if (query.exec(strPers))
         qDebug() << "remove was successfully";
     else
         qDebug() << "bad removing";
+    strContry.append(id);
+    if (query.exec(strContry)) {
+        qDebug() << "remove from country excellent";
+    } else {
+        qDebug() << "bad remvoe from country";
+    }
 }
 
 void DataBase::countries(QString id)
@@ -76,18 +83,21 @@ void DataBase::countries(QString id)
 
 void DataBase::addPerson(QString data)
 {
-    qDebug() << "data = " << data;
-    QStringList list = data.split(",");
+    QStringList list = data.split(";");
+    QString cntries = list[1];
+    QStringList listContries = list[1].split(",");
+
+    QStringList listFields = list[0].split(",");
     QSqlQuery query;
 
     query.prepare("INSERT INTO person (firstname, surname, position, address, phone, martialStatus) "
                   "VALUES (:firstname, :surname, :position, :address, :phone, :martialStatus)");
-    query.bindValue(":firstname", list[0]);
-    query.bindValue(":surname", list[1]);
-    query.bindValue(":position", list[2]);
-    query.bindValue(":address", list[3]);
-    query.bindValue(":phone", list[4]);
-    query.bindValue(":martialStatus", list[5]);
+    query.bindValue(":firstname", listFields[0]);
+    query.bindValue(":surname", listFields[1]);
+    query.bindValue(":position", listFields[2]);
+    query.bindValue(":address", listFields[3]);
+    query.bindValue(":phone", listFields[4]);
+    query.bindValue(":martialStatus", listFields[5]);
     if (query.exec()) {
         qDebug() << "excellent insert";
     } else {
@@ -101,15 +111,12 @@ void DataBase::addPerson(QString data)
         maxId = query.value(0).toString();
     }
 
-    qDebug() << "list = " << list[6];
-    QStringList countries = list[6].split(" ");
-    for (int i = 0; i < countries.length(); i++) {
-        qDebug() << "c = " << countries[i];
+    for (int i = 0; i < listContries.length(); i++) {
         QSqlQuery queryCountries;
         queryCountries.prepare("INSERT INTO country (id, country) "
                                "VALUES (:id, :country)");
         queryCountries.bindValue(":id", maxId);
-        queryCountries.bindValue(":country", countries[i]);
+        queryCountries.bindValue(":country", listContries[i]);
         queryCountries.exec();
     }
 }

@@ -6,7 +6,9 @@ ApplicationWindow {
     id: addScreen
     minimumWidth: 1080
     minimumHeight: 720
+    height: 720
     property int fontScale: 15
+    property string arr: ""
 
     Item {
         id: labels
@@ -74,7 +76,7 @@ ApplicationWindow {
     Item {
         id: fields
         width: addScreen.minimumWidth / 4
-        height: childrenRect.height
+        height: parent.height//childrenRect.height
         anchors.left: labels.right
         anchors.top: parent.top
         anchors.margins: 10
@@ -125,12 +127,48 @@ ApplicationWindow {
             anchors.topMargin: 15
         }
 
+        ListModel {
+            id: listModelContries
+        }
+
         TextField {
-            id: fieldCountries
+            id: fieldCountry
             width: parent.width
             height: 50
             anchors.top: fieldMartialStatus.bottom
             anchors.topMargin: 15
+        }
+
+        ListView {
+            id: listView
+            clip: true
+            width: parent.width
+            height: childrenRect.height
+            anchors.top: fieldCountry.bottom
+            anchors.bottom: parent.bottom
+            anchors.left: labels.right
+            anchors.right: addScreen.right
+            anchors.bottomMargin: 80
+            anchors.topMargin: 15
+            spacing: 15
+            model: listModelContries
+            delegate: Item {
+                id: item
+                width: parent.width
+                height: 50
+                property string sss: textField.text
+
+                TextField {
+                    id: textField
+                    anchors.fill: parent
+                    width: parent.width
+                    height: parent.height
+                    onActiveFocusChanged: {
+                        if (text != "")
+                            arr += text + ","
+                    }
+                }
+            }
         }
     }
 
@@ -143,9 +181,20 @@ ApplicationWindow {
         anchors.left: parent.left
         anchors.margins: 10
         onClicked: {
-            var str = fieldName.text + "," + fieldSurname.text + "," + fieldPosition.text + "," + fieldAddress.text + "," + fieldPhone.text + "," + fieldMartialStatus.text + "," + fieldCountries.text
+            listView.focus = false
+            arr = fieldCountry.text + "," + arr.slice(0, -1)
+            var str = fieldName.text + "," + fieldSurname.text + "," + fieldPosition.text + "," + fieldAddress.text + "," + fieldPhone.text + "," + fieldMartialStatus.text + ";" + arr//fieldCountries.text
             dataBase.addPerson(str)
             dataBase.updateModel();
+            fieldName.text = ""
+            fieldSurname.text = ""
+            fieldPosition.text = ""
+            fieldAddress.text = ""
+            fieldPhone.text = ""
+            fieldMartialStatus.text = ""
+            fieldCountry.text = ""
+            listModelContries.clear();
+            arr = ""
         }
     }
 
@@ -157,5 +206,17 @@ ApplicationWindow {
         anchors.bottom: parent.bottom
         anchors.left: save.right
         anchors.margins: 10
+    }
+
+    Button {
+        width: 200
+        height: 50
+        anchors.bottom: parent.bottom
+        anchors.left: clear.right
+        anchors.margins: 10
+        text: "Add country"
+        onClicked: {
+            listModelContries.append({})
+        }
     }
 }

@@ -139,7 +139,15 @@ Window {
 
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: print("id = ", dataBase.get(listView.currentIndex).idPerson)
+                        onClicked: {
+                            var component = Qt.createComponent("EditScreen.qml")
+                            var window = component.createObject(root)
+                            window.idPerson = dataBase.get(listView.currentIndex).idPerson
+                            dataBase.countries(dataBase.get(listView.currentIndex).idPerson)
+                            dataBase.getPerson(dataBase.get(listView.currentIndex).idPerson)
+                            window.show()
+                            print("id = ", dataBase.get(listView.currentIndex).idPerson)
+                        }
                     }
                 }
             }
@@ -246,8 +254,6 @@ Window {
                     text: position
                 }
             }
-
-
 
             MouseArea {
                 anchors.fill: parent

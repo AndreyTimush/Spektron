@@ -89,6 +89,7 @@ void DataBase::addPerson(QString data)
 
     QStringList listFields = list[0].split(",");
     QSqlQuery query;
+    query.exec("create table if not exists person (id integer primary key, firstname varchar(20), surname varchar(30), position varchar(30), address varchar(30), phone varchar(12), martialStatus varchar(10))");
 
     query.prepare("INSERT INTO person (firstname, surname, position, address, phone, martialStatus) "
                   "VALUES (:firstname, :surname, :position, :address, :phone, :martialStatus)");
@@ -111,6 +112,7 @@ void DataBase::addPerson(QString data)
         maxId = query.value(0).toString();
     }
 
+    query.exec("create table if not exists country (id integer, country varchar(50))");
     for (int i = 0; i < listContries.length(); i++) {
         QSqlQuery queryCountries;
         queryCountries.prepare("INSERT INTO country (id, country) "

@@ -110,6 +110,7 @@ Window {
                     }
                 }
             }
+
             Item {
                 id: itemEdit
                 width: parent.width / 3

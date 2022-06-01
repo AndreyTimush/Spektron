@@ -147,7 +147,7 @@ ApplicationWindow {
             anchors.top: fieldCountry.bottom
             anchors.bottom: parent.bottom
             anchors.left: labels.right
-            anchors.right: addScreen.right
+            anchors.right: parent.right
             anchors.bottomMargin: 80
             anchors.topMargin: 15
             spacing: 15
@@ -182,7 +182,10 @@ ApplicationWindow {
         anchors.margins: 10
         onClicked: {
             listView.focus = false
-            arr = fieldCountry.text + "," + arr.slice(0, -1)
+            if (arr != "")
+                arr = fieldCountry.text + "," + arr.slice(0, -1)
+            else
+                arr = fieldCountry.text
             var str = fieldName.text + "," + fieldSurname.text + "," + fieldPosition.text + "," + fieldAddress.text + "," + fieldPhone.text + "," + fieldMartialStatus.text + ";" + arr//fieldCountries.text
             dataBase.addPerson(str)
             dataBase.updateModel();

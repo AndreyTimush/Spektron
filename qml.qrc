@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>InfoScreen.qml</file>
         <file>AddScreen.qml</file>
+        <file>EditScreen.qml</file>
     </qresource>
 </RCC>

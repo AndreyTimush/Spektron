@@ -22,7 +22,6 @@ Window {
         highlightMoveDuration: 100
         highlightResizeDuration: 1
         focus: true
-//        currentIndex: 0
         highlight: Rectangle {
             color: "lightblue"
         }
@@ -71,7 +70,6 @@ Window {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-//                            print("currentIndex is ", listView.currentIndex)
                             var component = Qt.createComponent("AddScreen.qml")
                             var window = component.createObject(root)
                             window.show()
@@ -159,28 +157,42 @@ Window {
                 color: "black"
             }
 
-            Label {
-                id: nameLabel
+            Item {
+                id: nameItemLabel
+                width: parent.width / 3
                 anchors.left: parent.left
                 anchors.leftMargin: 10
-                text: "Name"
-                color: "white"
+                Label {
+                    id: nameLabel
+                    text: "Name"
+                    color: "white"
+                }
             }
 
-            Label {
-                id: surnameLabel
-                text: "Surname"
-                anchors.left: nameLabel.right
-                anchors.leftMargin: parent.width / 3
-                color: "white"
+            Item {
+                id: surnameItemLabel
+                width: parent.width / 3
+                anchors.left: nameItemLabel.right
+                anchors.leftMargin: 10
+
+                Label {
+                    id: surnameLabel
+                    text: "Surname"
+                    color: "white"
+                }
             }
 
-            Label {
-                id: positionLabel
-                text: "Position"
-                anchors.right: parent.right
-                anchors.rightMargin: 10
-                color: "white"
+            Item {
+                id: positionItemLabel
+                width: parent.width / 3
+                anchors.left: surnameItemLabel.right
+                anchors.leftMargin: 10
+
+                Label {
+                    id: positionLabel
+                    text: "Position"
+                    color: "white"
+                }
             }
 
             Rectangle {
@@ -199,26 +211,42 @@ Window {
             width: listView.width
             height: 50
 
-            Label {
-                id: nameText
+            Item {
+                id: itemName
+                width: parent.width / 3
+                height: parent.height
                 anchors.left: parent.left
                 anchors.leftMargin: 10
-                text: name
+                Label {
+                    id: nameText
+                    text: name
+                }
             }
 
-            Label {
-                id: surnameText
-                anchors.left: nameText.right
-                anchors.leftMargin: parent.width / 3
-                text: surname
+            Item {
+                id: surnameItem
+                width: parent.width / 3
+                height: parent.height
+                anchors.left: itemName.right
+                anchors.leftMargin: 10
+                Label {
+                    id: surnameText
+                    text: surname
+                }
             }
 
-            Label {
-                id: positionText
-                text: position
-                anchors.right: parent.right
-                anchors.rightMargin: 10
+            Item {
+                width: parent.width / 3
+                height: parent.height
+                anchors.left: surnameItem.right
+                anchors.leftMargin: 10
+                Label {
+                    id: positionText
+                    text: position
+                }
             }
+
+
 
             MouseArea {
                 anchors.fill: parent

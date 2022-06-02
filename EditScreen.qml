@@ -41,7 +41,7 @@ ApplicationWindow {
             arr = ""
             fieldCountry.text = listCountries[0]
             for (var i = 1; i < listCountries.length; i++) {
-                listModelContries.append({ttt: listCountries[i]})
+                listModelContries.append({"ttt": listCountries[i]})
             }
         }
     }
@@ -219,21 +219,13 @@ ApplicationWindow {
             for (var i = 0; i < listModelContries.count; i++)
                 strCountries += listModelContries.get(i).ttt + ","
             if (strCountries != "")
-                strCountries = fieldCountry.text + "," + strCountries//.slice(0, -1)
+                strCountries = fieldCountry.text + "," + strCountries.slice(0, -1)
             else
                 strCountries = fieldCountry.text
             var str = idPerson + "," + fieldName.text + "," + fieldSurname.text + "," + fieldPosition.text + "," + fieldAddress.text + "," + fieldPhone.text + "," + fieldMartialStatus.text + ";" + strCountries//fieldCountries.text
 
             dataBase.saveChanges(str);
             dataBase.updateModel();
-            fieldName.text = ""
-            fieldSurname.text = ""
-            fieldPosition.text = ""
-            fieldAddress.text = ""
-            fieldPhone.text = ""
-            fieldMartialStatus.text = ""
-            fieldCountry.text = ""
-            listModelContries.clear();
             arr = ""
         }
     }
@@ -280,7 +272,7 @@ ApplicationWindow {
         anchors.margins: 10
         text: "Remove country"
         onClicked: {
-            listModelContries.remove(listModelContries.count - 2)
+            listModelContries.remove(listModelContries.count - 1)
         }
     }
 }

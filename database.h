@@ -5,6 +5,10 @@
 #include <QSqlQueryModel>
 #include <QDebug>
 #include <QSqlQuery>
+#include <QStandardPaths>
+#include <QDir>
+#include <QSqlQuery>
+#include <QSqlError>
 
 class DataBase : public QSqlQueryModel
 {

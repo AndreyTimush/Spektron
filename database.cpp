@@ -2,6 +2,10 @@
 
 DataBase::DataBase(QObject *parent) : QSqlQueryModel(parent)
 {
+    QString path = QDir::currentPath() + "/persons.db";
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");//not dbConnection
+    db.setDatabaseName(path);
+    db.open();
     this->updateModel();
 }
 
@@ -158,7 +162,7 @@ void DataBase::getPerson(QString id)
 
 void DataBase::saveChanges(QString data)
 {
-    data.remove(data.length() - 1, 1);
+//    data.remove(data.length() - 1, 1);
     QStringList list = data.split(";");
     qDebug() << "ll = " << list;
     QString cntries = list[1];
@@ -180,5 +184,17 @@ void DataBase::saveChanges(QString data)
         qDebug() << "exc";
     } else {
         qDebug() << "bad";
+    }
+
+    QString strContry = "delete from country where id=";
+    strContry.append(listFields[0]);
+    query.exec(strContry);
+
+    for (int i = 0; i < listContries.length(); i++) {
+        query.prepare("INSERT INTO country (id, country) "
+                               "VALUES (:id, :country)");
+        query.bindValue(":id", listFields[0]);
+        query.bindValue(":country", listContries[i]);
+        query.exec();
     }
 }

@@ -70,7 +70,7 @@ Window {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            var component = Qt.createComponent("AddScreen.qml")
+                            var component = Qt.createComponent("qml/AddScreen.qml")
                             var window = component.createObject(root)
                             window.show()
                         }
@@ -140,7 +140,7 @@ Window {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            var component = Qt.createComponent("EditScreen.qml")
+                            var component = Qt.createComponent("qml/EditScreen.qml")
                             var window = component.createObject(root)
                             window.idPerson = dataBase.get(listView.currentIndex).idPerson
                             dataBase.countries(dataBase.get(listView.currentIndex).idPerson)
@@ -262,7 +262,7 @@ Window {
                 }
 
                 onDoubleClicked: {
-                    var component = Qt.createComponent("InfoScreen.qml")
+                    var component = Qt.createComponent("qml/InfoScreen.qml")
                     var window = component.createObject(root)
                     dataBase.countries(idPerson)
                     window.show()

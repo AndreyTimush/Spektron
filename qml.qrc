@@ -1,8 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>InfoScreen.qml</file>
-        <file>AddScreen.qml</file>
-        <file>EditScreen.qml</file>
+        <file>qml/InfoScreen.qml</file>
+        <file>qml/AddScreen.qml</file>
+        <file>qml/EditScreen.qml</file>
     </qresource>
 </RCC>

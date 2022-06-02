@@ -27,6 +27,8 @@ public:
 
 signals:
     void getCountries(QStringList name);
+    void sendInfoPerson(QStringList list);
+    void sendCountries(QStringList listCountries);
 
 protected:
     QHash<int, QByteArray> roleNames() const;
@@ -38,6 +40,7 @@ public slots:
     void countries(QString id);
     void addPerson(QString data);
     void getPerson(QString id);
+    void saveChanges(QString data);
 };
 
 #endif // DATABASE_H

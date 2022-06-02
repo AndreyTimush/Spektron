@@ -11,6 +11,26 @@ ApplicationWindow {
     property string arr: ""
     property var idPerson
 
+    Connections {
+        target: dataBase
+
+        onSendInfoPerson: {
+            fieldName.text = list[0]
+            fieldSurname.text = list[1]
+            fieldPosition.text = list[2]
+            fieldAddress.text = list[3]
+            fieldPhone.text = list[4]
+            fieldMartialStatus.text = list[5]
+        }
+
+        onSendCountries: {
+            fieldCountry.text = listCountries[0]
+            for (var i = 1; i < listCountries.length; i++) {
+                listModelContries.append({ttt: listCountries[i]})
+            }
+        }
+    }
+
     Item {
         id: labels
         width: addScreen.minimumWidth / 4
@@ -153,21 +173,14 @@ ApplicationWindow {
             anchors.topMargin: 15
             spacing: 15
             model: listModelContries
-            delegate: Item {
-                id: item
+            delegate: TextField {
+                id: textField
                 width: parent.width
                 height: 50
-                property string sss: textField.text
-
-                TextField {
-                    id: textField
-                    anchors.fill: parent
-                    width: parent.width
-                    height: parent.height
-                    onActiveFocusChanged: {
-                        if (text != "")
-                            arr += text + ","
-                    }
+                text: ttt != undefined ? ttt : ""
+                onActiveFocusChanged: {
+                    if (text != "")
+                        arr += text + ","
                 }
             }
         }
@@ -188,7 +201,8 @@ ApplicationWindow {
             else
                 arr = fieldCountry.text
             var str = fieldName.text + "," + fieldSurname.text + "," + fieldPosition.text + "," + fieldAddress.text + "," + fieldPhone.text + "," + fieldMartialStatus.text + ";" + arr//fieldCountries.text
-            dataBase.addPerson(str)
+//            dataBase.addPerson(str)
+            dataBase.saveChanges(str);
             dataBase.updateModel();
             fieldName.text = ""
             fieldSurname.text = ""
@@ -210,5 +224,28 @@ ApplicationWindow {
         anchors.bottom: parent.bottom
         anchors.left: save.right
         anchors.margins: 10
+        onClicked: {
+            fieldName.text = ""
+            fieldSurname.text = ""
+            fieldPosition.text = ""
+            fieldAddress.text = ""
+            fieldPhone.text = ""
+            fieldMartialStatus.text = ""
+            fieldCountry.text = ""
+            listModelContries.clear();
+            arr = ""
+        }
+    }
+
+    Button {
+        width: 200
+        height: 50
+        anchors.bottom: parent.bottom
+        anchors.left: clear.right
+        anchors.margins: 10
+        text: "Add country"
+        onClicked: {
+            listModelContries.append({})
+        }
     }
 }

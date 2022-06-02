@@ -135,6 +135,8 @@ void DataBase::getPerson(QString id)
         qDebug() << "field = " << query.value(1).toString();
         result += query.value(1).toString() + "," + query.value(2).toString() + "," + query.value(3).toString() + "," + query.value(4).toString() + "," + query.value(5).toString() + "," + query.value(6).toString();
     }
+    qDebug() << "result = " << result;
+//    result += ""; //можно сделать сплит ; и отделить страны от остальных полей)
     QString strCountries = "SELECT country FROM country WHERE id=";
     strCountries.append(id);
     if (query.exec(strCountries)) {
@@ -142,8 +144,19 @@ void DataBase::getPerson(QString id)
     } else {
         qDebug() << "bad";
     }
+    QString countries;
     while (query.next()) {
+        countries += query.value(0).toString() + ",";
         qDebug() << query.value(0).toString();
     }
-    qDebug() << "result = " << result;
+    QStringList list = result.split(",");
+    QStringList listCountries = countries.split(",");
+    listCountries.removeAt(listCountries.length() - 1);
+    emit sendInfoPerson(list);
+    emit sendCountries(listCountries);
+}
+
+void DataBase::saveChanges(QString data)
+{
+    qDebug() << "data = " << data;
 }

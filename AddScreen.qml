@@ -209,6 +209,17 @@ ApplicationWindow {
         anchors.bottom: parent.bottom
         anchors.left: save.right
         anchors.margins: 10
+        onClicked: {
+            fieldName.text = ""
+            fieldSurname.text = ""
+            fieldPosition.text = ""
+            fieldAddress.text = ""
+            fieldPhone.text = ""
+            fieldMartialStatus.text = ""
+            fieldCountry.text = ""
+            listModelContries.clear();
+            arr = ""
+        }
     }
 
     Button {

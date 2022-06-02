@@ -10,6 +10,20 @@ ApplicationWindow {
     property int fontScale: 15
     property string arr: ""
     property var idPerson
+    property string arr1: ""
+    property string strCountries: ""
+
+    function findElement(myModel, text) {
+            for(var i = 0; i < myModel.count; i++) {
+                var element = myModel.get(i);
+
+                if(text == element.text) {
+                    console.log("Found element: ", i);
+                    return element.text;
+                }
+            }
+            return "";
+        }
 
     Connections {
         target: dataBase
@@ -24,6 +38,7 @@ ApplicationWindow {
         }
 
         onSendCountries: {
+            arr = ""
             fieldCountry.text = listCountries[0]
             for (var i = 1; i < listCountries.length; i++) {
                 listModelContries.append({ttt: listCountries[i]})
@@ -182,6 +197,11 @@ ApplicationWindow {
                     if (text != "")
                         arr += text + ","
                 }
+
+                onTextChanged: {
+                    ttt = text
+                    arr1 += ttt
+                }
             }
         }
     }
@@ -196,12 +216,14 @@ ApplicationWindow {
         anchors.margins: 10
         onClicked: {
             listView.focus = false
-            if (arr != "")
-                arr = fieldCountry.text + "," + arr.slice(0, -1)
+            for (var i = 0; i < listModelContries.count; i++)
+                strCountries += listModelContries.get(i).ttt + ","
+            if (strCountries != "")
+                strCountries = fieldCountry.text + "," + strCountries//.slice(0, -1)
             else
-                arr = fieldCountry.text
-            var str = fieldName.text + "," + fieldSurname.text + "," + fieldPosition.text + "," + fieldAddress.text + "," + fieldPhone.text + "," + fieldMartialStatus.text + ";" + arr//fieldCountries.text
-//            dataBase.addPerson(str)
+                strCountries = fieldCountry.text
+            var str = idPerson + "," + fieldName.text + "," + fieldSurname.text + "," + fieldPosition.text + "," + fieldAddress.text + "," + fieldPhone.text + "," + fieldMartialStatus.text + ";" + strCountries//fieldCountries.text
+
             dataBase.saveChanges(str);
             dataBase.updateModel();
             fieldName.text = ""
@@ -238,6 +260,7 @@ ApplicationWindow {
     }
 
     Button {
+        id: addCountry
         width: 200
         height: 50
         anchors.bottom: parent.bottom
@@ -246,6 +269,18 @@ ApplicationWindow {
         text: "Add country"
         onClicked: {
             listModelContries.append({})
+        }
+    }
+
+    Button {
+        width: 250
+        height: 50
+        anchors.bottom: parent.bottom
+        anchors.left: addCountry.right
+        anchors.margins: 10
+        text: "Remove country"
+        onClicked: {
+            listModelContries.remove(listModelContries.count - 2)
         }
     }
 }

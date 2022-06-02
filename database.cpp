@@ -158,5 +158,27 @@ void DataBase::getPerson(QString id)
 
 void DataBase::saveChanges(QString data)
 {
-    qDebug() << "data = " << data;
+    data.remove(data.length() - 1, 1);
+    QStringList list = data.split(";");
+    qDebug() << "ll = " << list;
+    QString cntries = list[1];
+    QStringList listContries = list[1].split(",");
+    qDebug() << "list = " << listContries;
+    QStringList listFields = list[0].split(",");
+    QSqlQuery query;
+
+    QString str = "UPDATE person SET firstname=:firstname, surname=:surname, position=:position, address=:address, phone=:phone, martialStatus=:martialStatus WHERE id=";
+    str.append(listFields[0]);
+    query.prepare(str);
+    query.bindValue(":firstname", listFields[1]);
+    query.bindValue(":surname", listFields[2]);
+    query.bindValue(":position", listFields[3]);
+    query.bindValue(":address", listFields[4]);
+    query.bindValue(":phone", listFields[5]);
+    query.bindValue(":martialStatus", listFields[6]);
+    if (query.exec()) {
+        qDebug() << "exc";
+    } else {
+        qDebug() << "bad";
+    }
 }

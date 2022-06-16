@@ -4,5 +4,6 @@
 		<file>data/images/remove.svg</file>
 		<file>data/images/edit.svg</file>
 		<file>data/images/removeCountry.svg</file>
+		<file>data/images/listFiles.svg</file>
 	</qresource>
 </RCC>

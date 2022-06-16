@@ -7,6 +7,7 @@
 #include <QSqlError>
 
 #include "database.h"
+#include "listfiles.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,10 +16,13 @@ int main(int argc, char *argv[])
 
     // Обеспечиваем доступ к модели и классу для работы с базой данных из QML
     DataBase *dataBase = new DataBase();
-//    dataBase->setQuery("SELECT * from person");
+    ListFiles *listFilesModel = new ListFiles();
+
     engine.rootContext()->setContextProperty("dataBase", dataBase);
+    engine.rootContext()->setContextProperty("listFilesModel", listFilesModel);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     return app.exec();
 }
+//qabsrtactlistmodel

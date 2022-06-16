@@ -44,7 +44,7 @@ Window {
 
             Item {
                 id: itemAdd
-                width: parent.width / 3
+                width: parent.width / 4
                 height: parent.height
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -79,10 +79,39 @@ Window {
             }
 
             Item {
-                id: itemRemove
-                width: parent.width / 3
+                id: itemListFiles
+                width: parent.width / 4
                 height: parent.height
                 anchors.left: itemAdd.right
+                Image {
+                    id: listFilesImage
+                    height: parent.height
+                    width: height
+                    source: "qrc:/data/images/listFiles.svg"
+                }
+                Text {
+                    id: showFiles
+                    text: "list files"
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: listFilesImage.right
+                    anchors.leftMargin: 10
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        var component = Qt.createComponent("qml/ListFilesScreen.qml")
+                        var window = component.createObject(root)
+                        window.show()
+                    }
+                }
+            }
+
+            Item {
+                id: itemRemove
+                width: parent.width / 4
+                height: parent.height
+                anchors.left: itemListFiles.right
                 Item {
                     width: childrenRect.width
                     height: parent.height
@@ -113,7 +142,7 @@ Window {
 
             Item {
                 id: itemEdit
-                width: parent.width / 3
+                width: parent.width / 4
                 height: parent.height
                 anchors.right: parent.right
                 anchors.rightMargin: 10

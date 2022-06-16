@@ -4,5 +4,6 @@
         <file>qml/InfoScreen.qml</file>
         <file>qml/AddScreen.qml</file>
         <file>qml/EditScreen.qml</file>
+        <file>qml/ListFilesScreen.qml</file>
     </qresource>
 </RCC>

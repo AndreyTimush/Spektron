@@ -6,10 +6,12 @@ QT += quick sql widgets
 
 HEADERS += \
         src/database.h \
+        src/filterproxymodel.h \
         src/listfiles.h
 
 SOURCES += \
         src/database.cpp \
+        src/filterproxymodel.cpp \
         src/listfiles.cpp \
         src/main.cpp
 

@@ -12,7 +12,7 @@ ApplicationWindow {
     ListView {
         anchors.fill: parent
         clip: true
-        model: listFilesModel
+        model: filterModel
         delegate: Item {
             width: fileName.paintedWidth
             height: fileName.paintedHeight
